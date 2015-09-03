@@ -1,0 +1,55 @@
+def vM = 0
+def vN = 1
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+         classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+ 
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'pmd'
+  apply plugin: 'application'
+  apply plugin: 'eclipse'
+  apply plugin: 'gradle-one-jar'
+ 
+  if (hasProperty("teamcity")) {
+	    version="0."+vM+"."+vN+"."+teamcity['build.number']
+	} else {
+	    version="0."+vM+"."+vN
+	}
+  
+  repositories {
+    mavenCentral()
+    mavenLocal()
+  }
+
+  dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '18.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile group: 'org.json', name: 'json', version: '20141113'
+    compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
+    testCompile 'junit:junit:4.12'
+  }
+}
+
+project(':SMDesktop') {
+    dependencies {
+        compile project(':SMLib')
+    }
+}
+
+project(':SMAndroid') {
+    dependencies {
+        compile project(':SMLib')
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.5'
+}
