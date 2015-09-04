@@ -14,30 +14,32 @@ public class Desktop extends JFrame {
 		setContentPane(contentPane); // <---- ustawia contentPane jako g³ówny
 										// panel programu/okna
 		menu = new MenuG³ówne(this);
-		contentPane.add(menu);
+		zmieñStronê(Strona.MENUG£ÓWNE);
 		kalendarz = new Kalendarz();
-
+		pack();
 	}
 
 	public void zmieñStronê(Strona strona) {
 		contentPane.removeAll();
 
 		switch (strona) {
-		case KALENDARZ:
-			contentPane.add(kalendarz);
-			break;
-		case MENUG£ÓWNE:
-			break;
-		case SHISHABARY:
-			break;
-		case TYTONIE:
-			break;
-		case WYDATKI:
-			break;
-		default:
-			break;
-
+			case KALENDARZ :
+				contentPane.add(kalendarz);
+				break;
+			case MENUG£ÓWNE :
+				contentPane.add(menu);
+				break;
+			case SHISHABARY :
+				break;
+			case TYTONIE :
+				break;
+			case WYDATKI :
+				break;
+			default :
+				break;
 		}
-
+		revalidate();
+		contentPane.revalidate();
+		pack();
 	}
 }
