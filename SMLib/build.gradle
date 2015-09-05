@@ -3,6 +3,10 @@ description="Common Library for Shisha Manager Project"
 def archieveFileName="SMLib"
 mainClassName="pl.grm.sm.lib.TestSM"
 
+dependencies {
+  compile group: 'mysql',name: 'mysql-connector-java', version: '5.1.35'
+}
+
 pmd {
   ignoreFailures = true
   sourceSets = [sourceSets.main]
