@@ -4,7 +4,16 @@ enum PreparedStatements {
 	ADDUSER("INSERT INTO `users`(`username`, `passwd`, `salt`) VALUES (?,?,?)"),
 	CHECKUSER("SELECT `username` FROM `users` WHERE `username` = ?"),
 	CHECKPSWD("SELECT `username` FROM `users` WHERE `username` = ? AND `passwd` = ?"),
-	GETSALT("SELECT `salt` FROM `users` WHERE `username`=?");
+	GETSALT("SELECT `salt` FROM `users` WHERE `username`=?"),
+	GETALLTOBACCO(""),
+	GETINFOTOBACCO(""),
+	GETINFOMEETING(""),
+	GETALLMEETINGS(""),
+	ADDMEETING(""),
+	ADDTOBACCO(""),
+	ADDSHISHABAR(""),
+	GETALLSHISHABARS(""),
+	GETSHISHABAR("");
 	
 	private String statement;
 	

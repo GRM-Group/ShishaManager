@@ -11,11 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import pl.grm.sm.core.DBHandler;
+
 public class DBConnection {
-	private DBHandler dbHandler;
 	private String url;
-	private String passwd;
 	private String user;
+	private String passwd;
+	private DBHandler dbHandler;
 	private Connection con;
 	
 	private DBConnection(DBHandler dbHandler) {
@@ -25,7 +27,7 @@ public class DBConnection {
 	public static DBHandler createNewDBHandler(String confFileName)
 			throws IOException {
 		if (new File(confFileName).exists()) {
-			DBHandler dbHandler = new DBHandler();
+			DBHandlerImpl dbHandler = new DBHandlerImpl();
 			DBConnection dbConnection = new DBConnection(dbHandler);
 			Properties props = new Properties();
 			FileInputStream in = new FileInputStream(confFileName);
@@ -33,50 +35,14 @@ public class DBConnection {
 			dbConnection.setUser(props.getProperty("db.user"));
 			dbConnection.setPasswd(props.getProperty("db.passwd"));
 			dbConnection.setURL(props.getProperty("db.url"));
+			SQLExecutor sqlexec = new SQLExecutor(dbHandler);
+			dbHandler.setSQLExecutor(sqlexec);
 			dbHandler.setDBConnection(dbConnection);
 			dbHandler.checkConnection();
 			return dbHandler;
 		}
 		throw new FileNotFoundException(
 				"Couldn't find property file " + confFileName);
-	}
-	
-	private void setURL(String url) {
-		this.url = url;
-	}
-	
-	private void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
-	
-	private void setUser(String user) {
-		this.user = user;
-	}
-	
-	Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, user, passwd);
-	}
-	
-	public void initConnection() throws SQLException {
-		if (con == null || con.isClosed()) {
-			con = getConnection();
-		}
-	}
-	
-	public void closeConnection() {
-		if (con != null) {
-			try {
-				con.close();
-				con = null;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public PreparedStatement prepareStatement(PreparedStatements ps)
-			throws SQLException {
-		return con.prepareStatement(ps.getStatement());
 	}
 	
 	public boolean checkConnection() {
@@ -96,5 +62,43 @@ public class DBConnection {
 			closeConnection();
 			return false;
 		}
+	}
+	
+	public void initConnection() throws SQLException {
+		if (con == null || con.isClosed()) {
+			con = getConnection();
+		}
+	}
+	
+	public PreparedStatement prepareStatement(PreparedStatements ps)
+			throws SQLException {
+		return con.prepareStatement(ps.getStatement());
+	}
+	
+	public void closeConnection() {
+		if (con != null) {
+			try {
+				con.close();
+				con = null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(url, user, passwd);
+	}
+	
+	private void setURL(String url) {
+		this.url = url;
+	}
+	
+	private void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+	
+	private void setUser(String user) {
+		this.user = user;
 	}
 }
