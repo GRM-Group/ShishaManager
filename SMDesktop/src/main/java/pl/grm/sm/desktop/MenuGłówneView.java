@@ -1,13 +1,14 @@
 package pl.grm.sm.desktop;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MenuG³ówne extends JPanel {
-	public MenuG³ówne(Desktop desktop) {
+public class MenuG³ówneView extends JPanel {
+	public MenuG³ówneView(Desktop desktop) {
 		JButton kalendarz = new JButton("Kalendarz");
 		kalendarz.addActionListener(new ActionListener() {
 
@@ -17,7 +18,18 @@ public class MenuG³ówne extends JPanel {
 
 			}
 		});
+		setLayout(new GridLayout(2, 1, 0, 0));
 		add(kalendarz);
+		JButton tytonie = new JButton("Tytonie");
+		tytonie.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				desktop.zmieñStronê(Strona.TYTONIE);
+
+			}
+		});
+		add(tytonie);
 	}
 
 }
