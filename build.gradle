@@ -50,25 +50,19 @@ project(':SMLib') {
 		testCompile 'junit:junit:4.12'
 	}
 
-	pmd {
-		ignoreFailures = true
-		sourceSets = [sourceSets.main]
-		reportsDir = file("$project.buildDir/reports/pmd")
-		ruleSets = [
-			"java-basic",
-			"java-braces"
-		]
-	}
+	task pmd << {
+    println 'Running PMD static code analysis'
+		ant {
+			taskdef(name:'pmd', classname:'net.sourceforge.pmd.ant.PMDTask', classpath: configurations.pmdConf.asPath)
 
-	check << {
-	File outDir = new File('build/reports/pmd/')
-	outDir.mkdirs()
-	ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask',
-			classpath: configurations.pmd.asPath)
-		ant.cpd(minimumTokenCount: '100', format: 'xml',
-			outputFile: new File(outDir , 'cpd.xml')) {
-			fileset(dir: "src/main/java") {
-				include(name: '**/*.java')
+			pmd(shortFilenames:'true', failonruleviolation:'true', rulesetfiles:'conf/pmd-rules.xml') {
+				formatter(type:'csv', tofile:'myreport.csv', toConsole:'true')
+				fileset(dir: "src/main/java") {
+					include(name: '**/*.java')
+				}
+				fileset(dir: "src/test/java") {
+					include(name: '**/*.java')
+				}        
 			}
 		}
 	}
@@ -96,27 +90,21 @@ project(':SMDesktop') {
 		}
 	}
 
-	pmd {
-	  ignoreFailures = true
-	  sourceSets = [sourceSets.main]
-	  reportsDir = file("$project.buildDir/reports/pmd")
-	  ruleSets = [
-		"java-basic",
-		"java-braces"
-	  ]
-	}
+	task pmd << {
+    println 'Running PMD static code analysis'
+		ant {
+			taskdef(name:'pmd', classname:'net.sourceforge.pmd.ant.PMDTask', classpath: configurations.pmdConf.asPath)
 
-	check << {
-	  File outDir = new File('build/reports/pmd/')
-	  outDir.mkdirs()
-	  ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask',
-		classpath: configurations.pmd.asPath)
-	  ant.cpd(minimumTokenCount: '100', format: 'xml',
-		outputFile: new File(outDir , 'cpd.xml')) {
-		fileset(dir: "src/main/java") {
-		  include(name: '**/*.java')
+			pmd(shortFilenames:'true', failonruleviolation:'true', rulesetfiles:'conf/pmd-rules.xml') {
+				formatter(type:'csv', tofile:'myreport.csv', toConsole:'true')
+				fileset(dir: "src/main/java") {
+					include(name: '**/*.java')
+				}
+				fileset(dir: "src/test/java") {
+					include(name: '**/*.java')
+				}        
+			}
 		}
-	  }
 	}
 }
 
@@ -134,5 +122,5 @@ project(':SMAndroid') {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.6'
+    gradleVersion = '2.7'
 }
