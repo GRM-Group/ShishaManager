@@ -1,9 +1,13 @@
 package pl.grm.sm.desktop;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import pl.grm.sm.core.DBHandler;
+import pl.grm.sm.core.sql.DBConnection;
 import pl.grm.sm.desktop.tytonie.MarkaView;
 import pl.grm.sm.desktop.tytonie.MarkiView;
 import pl.grm.sm.desktop.tytonie.SmakView;
@@ -11,8 +15,8 @@ import pl.grm.sm.desktop.tytonie.SmakiView;
 import pl.grm.sm.desktop.tytonie.TytonieView;
 import pl.grm.sm.desktop.tytonie.TytoñView;
 import pl.grm.sm.desktop.tytonie.WszystkieTytonieView;
-
 public class Desktop extends JFrame {
+	
 	private JPanel contentPane;
 	private MenuG³ówneView menu;
 	private KalendarzView kalendarz;
@@ -25,11 +29,13 @@ public class Desktop extends JFrame {
 	private SmakView smak;
 	private SmakiView smaki;
 	private TytoñView tytoñ;
-
+	private DBHandler dbhandler;
+	
 	public Desktop() {
 		super();
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel(
+					"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,50 +58,58 @@ public class Desktop extends JFrame {
 		zmieñStronê(Strona.MENUG£ÓWNE);
 		setSize(300, 350);
 		setLocationRelativeTo(null);
+		try {
+			dbhandler = DBConnection.createNewDBHandler("conf.properties");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	public void zmieñStronê(Strona strona) {
 		contentPane.removeAll();
 		contentPane.invalidate();
-
 		switch (strona) {
-		case KALENDARZ:
-			contentPane.add(kalendarz);
-			break;
-		case MENUG£ÓWNE:
-			contentPane.add(menu);
-			break;
-		case SHISHABARY:
-			contentPane.add(shishabary);
-			break;
-		case TYTONIE:
-			contentPane.add(tytonie);
-			break;
-		case WYDATKI:
-			contentPane.add(wydatki);
-			break;
-		case WSZYSTKIE:
-			contentPane.add(wszystkie);
-			break;
-		case MARKA:
-			contentPane.add(marka);
-			break;
-		case MARKI:
-			contentPane.add(marki);
-			break;
-		case SMAK:
-			contentPane.add(smak);
-			break;
-		case SMAKI:
-			contentPane.add(smaki);
-			break;
-		case TYTOÑ:
-			contentPane.add(tytoñ);
-			break;
-		default:
-			break;
+			case KALENDARZ :
+				contentPane.add(kalendarz);
+				break;
+			case MENUG£ÓWNE :
+				contentPane.add(menu);
+				break;
+			case SHISHABARY :
+				contentPane.add(shishabary);
+				break;
+			case TYTONIE :
+				contentPane.add(tytonie);
+				break;
+			case WYDATKI :
+				contentPane.add(wydatki);
+				break;
+			case WSZYSTKIE :
+				contentPane.add(wszystkie);
+				break;
+			case MARKA :
+				contentPane.add(marka);
+				break;
+			case MARKI :
+				contentPane.add(marki);
+				break;
+			case SMAK :
+				contentPane.add(smak);
+				break;
+			case SMAKI :
+				contentPane.add(smaki);
+				break;
+			case TYTOÑ :
+				contentPane.add(tytoñ);
+				break;
+			default :
+				break;
 		}
 		contentPane.revalidate();
 		contentPane.repaint();
+	}
+
+	public DBHandler getDbhandler() {
+		return dbhandler;
 	}
 }
