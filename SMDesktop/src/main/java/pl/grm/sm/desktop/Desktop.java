@@ -10,6 +10,7 @@ import pl.grm.sm.core.DBHandler;
 import pl.grm.sm.core.sql.DBConnection;
 import pl.grm.sm.desktop.tytonie.MarkaView;
 import pl.grm.sm.desktop.tytonie.MarkiView;
+import pl.grm.sm.desktop.tytonie.NowyTytoñView;
 import pl.grm.sm.desktop.tytonie.SmakView;
 import pl.grm.sm.desktop.tytonie.SmakiView;
 import pl.grm.sm.desktop.tytonie.TytonieView;
@@ -29,6 +30,7 @@ public class Desktop extends JFrame {
 	private SmakView smak;
 	private SmakiView smaki;
 	private TytoñView tytoñ;
+	private NowyTytoñView nowytytoñ;
 	private DBHandler dbhandler;
 	
 	public Desktop() {
@@ -55,8 +57,9 @@ public class Desktop extends JFrame {
 		smak = new SmakView(this);
 		smaki = new SmakiView(this);
 		tytoñ = new TytoñView(this);
+		nowytytoñ = new NowyTytoñView(this);
 		zmieñStronê(Strona.MENUG£ÓWNE);
-		setSize(300, 350);
+		setSize(320, 420);
 		setLocationRelativeTo(null);
 		try {
 			dbhandler = DBConnection.createNewDBHandler("conf.properties");
@@ -102,13 +105,15 @@ public class Desktop extends JFrame {
 			case TYTOÑ :
 				contentPane.add(tytoñ);
 				break;
+			case NOWYTYTOÑ :
+				contentPane.add(nowytytoñ);
 			default :
 				break;
 		}
 		contentPane.revalidate();
 		contentPane.repaint();
 	}
-
+	
 	public DBHandler getDbhandler() {
 		return dbhandler;
 	}
