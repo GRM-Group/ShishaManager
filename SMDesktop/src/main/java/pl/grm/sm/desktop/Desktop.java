@@ -8,16 +8,22 @@ import javax.swing.UIManager;
 
 import pl.grm.sm.core.DBHandler;
 import pl.grm.sm.core.sql.DBConnection;
-import pl.grm.sm.desktop.tytonie.MarkaView;
-import pl.grm.sm.desktop.tytonie.MarkiView;
-import pl.grm.sm.desktop.tytonie.NowyTytoñView;
-import pl.grm.sm.desktop.tytonie.SmakView;
-import pl.grm.sm.desktop.tytonie.SmakiView;
-import pl.grm.sm.desktop.tytonie.TytonieView;
-import pl.grm.sm.desktop.tytonie.TytoñView;
-import pl.grm.sm.desktop.tytonie.WszystkieTytonieView;
+import pl.grm.sm.desktop.presenters.NowyTytonPresenter;
+import pl.grm.sm.desktop.view.KalendarzView;
+import pl.grm.sm.desktop.view.MenuG³ówneView;
+import pl.grm.sm.desktop.view.ShishaBaryView;
+import pl.grm.sm.desktop.view.WydatkiView;
+import pl.grm.sm.desktop.view.tytonie.MarkaView;
+import pl.grm.sm.desktop.view.tytonie.MarkiView;
+import pl.grm.sm.desktop.view.tytonie.NowyTytoñView;
+import pl.grm.sm.desktop.view.tytonie.SmakView;
+import pl.grm.sm.desktop.view.tytonie.SmakiView;
+import pl.grm.sm.desktop.view.tytonie.TytonieView;
+import pl.grm.sm.desktop.view.tytonie.TytoñView;
+import pl.grm.sm.desktop.view.tytonie.WszystkieTytonieView;
 public class Desktop extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MenuG³ówneView menu;
 	private KalendarzView kalendarz;
@@ -46,6 +52,20 @@ public class Desktop extends JFrame {
 										// panel programu/okna
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Shisha manager");
+		
+		stworzStrony();
+		
+		setSize(360, 600);
+		setLocationRelativeTo(null);
+		try {
+			dbhandler = DBConnection.createNewDBHandler("conf.properties");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		zmieñStronê(Strona.MENUG£ÓWNE);
+	}
+	
+	private void stworzStrony() {
 		menu = new MenuG³ówneView(this);
 		kalendarz = new KalendarzView(this);
 		shishabary = new ShishaBaryView(this);
@@ -57,15 +77,8 @@ public class Desktop extends JFrame {
 		smak = new SmakView(this);
 		smaki = new SmakiView(this);
 		tytoñ = new TytoñView(this);
-		nowytytoñ = new NowyTytoñView(this);
-		zmieñStronê(Strona.MENUG£ÓWNE);
-		setSize(320, 420);
-		setLocationRelativeTo(null);
-		try {
-			dbhandler = DBConnection.createNewDBHandler("conf.properties");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		NowyTytonPresenter nowytytonpresenter = new NowyTytonPresenter(this);
+		nowytytoñ = new NowyTytoñView(nowytytonpresenter);
 	}
 	
 	public void zmieñStronê(Strona strona) {

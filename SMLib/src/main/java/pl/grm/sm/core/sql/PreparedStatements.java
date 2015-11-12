@@ -10,10 +10,13 @@ enum PreparedStatements {
 	GETINFOMEETING(""),
 	GETALLMEETINGS(""),
 	ADDMEETING(""),
-	ADDTOBACCO(""),
+	ADDTOBACCODATA("INSERT INTO `user_tobacco_data` (`user_id`, `tyton_id`, `ocena_dym`, `ocena_smak`,`czas_palenia`,`cena`,`opis`) VALUES ((SELECT `id` FROM `users` WHERE `username` = ?), ?, ?, ?, ?, ?,?)"),
 	ADDSHISHABAR(""),
 	GETALLSHISHABARS(""),
-	GETSHISHABAR("");
+	GETSHISHABAR(""),
+	ADDTOBACCO("INSERT INTO `tytonie` (`marka_id`, `smak_id`) VALUES ((SELECT `id` FROM `marki` WHERE `name` = ?), (SELECT `id` FROM `smaki` WHERE `name` = ?))"),
+	ADDFLAVOR("INSERT INTO `smaki` (`name`) VALUES (?)"),
+	ADDCOMPANY("INSERT INTO `marki` (`name`) VALUES (?)");
 	
 	private String statement;
 	

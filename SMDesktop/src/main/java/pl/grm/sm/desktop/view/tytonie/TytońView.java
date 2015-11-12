@@ -1,4 +1,4 @@
-package pl.grm.sm.desktop.tytonie;
+package pl.grm.sm.desktop.view.tytonie;
 
 import javax.swing.JPanel;
 

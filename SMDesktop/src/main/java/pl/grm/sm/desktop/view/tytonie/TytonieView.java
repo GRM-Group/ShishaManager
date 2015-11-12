@@ -1,4 +1,4 @@
-package pl.grm.sm.desktop.tytonie;
+package pl.grm.sm.desktop.view.tytonie;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
