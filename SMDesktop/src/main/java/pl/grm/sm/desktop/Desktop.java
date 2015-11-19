@@ -77,8 +77,10 @@ public class Desktop extends JFrame {
 		smak = new SmakView(this);
 		smaki = new SmakiView(this);
 		tytoñ = new TytoñView(this);
-		NowyTytonPresenter nowytytonpresenter = new NowyTytonPresenter(this);
-		nowytytoñ = new NowyTytoñView(nowytytonpresenter);
+		nowytytoñ = new NowyTytoñView();
+		NowyTytonPresenter nowytytonpresenter = new NowyTytonPresenter(this,
+				nowytytoñ);
+				
 	}
 	
 	public void zmieñStronê(Strona strona) {

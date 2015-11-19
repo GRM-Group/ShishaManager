@@ -31,12 +31,16 @@ public class NowyTytoñView extends JPanel {
 	private JPanel panel_7;
 	private JPanel drugi;
 	private JTextField tfSmak;
-	private JTextField textField;
+	private JTextField tfMarka;
 	private JTextField tfCena;
 	private NowyTytonPresenter nowytytonpresenter;
+	private JButton zatw;
+	private JTextArea taOpis;
+	private JSlider sliderDym;
+	private JSlider sliderSmak;
+	private JSlider sliderCzas;
 	
-	public NowyTytoñView(NowyTytonPresenter nowytytonpresenter) {
-		this.nowytytonpresenter = nowytytonpresenter;
+	public NowyTytoñView() {
 		setLayout(new BorderLayout());
 		Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
 		labels.put(1, new JLabel("1"));
@@ -63,10 +67,10 @@ public class NowyTytoñView extends JPanel {
 			label.setHorizontalAlignment(SwingConstants.LEFT);
 			panel_1.add(label);
 			
-			textField = new JTextField();
-			textField.setHorizontalAlignment(SwingConstants.LEFT);
-			textField.setColumns(10);
-			panel_1.add(textField);
+			tfMarka = new JTextField();
+			tfMarka.setHorizontalAlignment(SwingConstants.LEFT);
+			tfMarka.setColumns(10);
+			panel_1.add(tfMarka);
 		}
 		{
 			panel_2 = new JPanel();
@@ -88,7 +92,7 @@ public class NowyTytoñView extends JPanel {
 			JLabel lblOcenaDymu = new JLabel("Ocena dymu:");
 			panel_3.add(lblOcenaDymu);
 			
-			JSlider sliderDym = new JSlider();
+			sliderDym = new JSlider();
 			sliderDym.setMinorTickSpacing(1);
 			sliderDym.setSnapToTicks(true);
 			sliderDym.setMinimum(1);
@@ -108,7 +112,7 @@ public class NowyTytoñView extends JPanel {
 			JLabel lblOcenaSmaku = new JLabel("Ocena smaku:");
 			panel_4.add(lblOcenaSmaku);
 			
-			JSlider sliderSmak = new JSlider();
+			sliderSmak = new JSlider();
 			sliderSmak.setMinorTickSpacing(1);
 			sliderSmak.setMinimum(1);
 			sliderSmak.setMaximum(11);
@@ -127,7 +131,7 @@ public class NowyTytoñView extends JPanel {
 			JLabel lblCzasPalenia = new JLabel("Czas palenia:");
 			panel_5.add(lblCzasPalenia);
 			
-			JSlider sliderCzas = new JSlider();
+			sliderCzas = new JSlider();
 			sliderCzas.setToolTipText("Czas palenia");
 			sliderCzas.setPaintLabels(true);
 			sliderCzas.setPaintTicks(true);
@@ -154,12 +158,12 @@ public class NowyTytoñView extends JPanel {
 			JLabel lblOpis = new JLabel("Opis:");
 			panel_7.add(lblOpis);
 			
-			JTextArea ta_Opis = new JTextArea();
-			ta_Opis.setLineWrap(true);
-			ta_Opis.setRows(10);
-			ta_Opis.setColumns(20);
-			ta_Opis.setMaximumSize(new Dimension(20, 10));
-			panel_7.add(ta_Opis);
+			taOpis = new JTextArea();
+			taOpis.setLineWrap(true);
+			taOpis.setRows(10);
+			taOpis.setColumns(20);
+			taOpis.setMaximumSize(new Dimension(20, 10));
+			panel_7.add(taOpis);
 		}
 		
 		drugi = new JPanel();
@@ -182,13 +186,45 @@ public class NowyTytoñView extends JPanel {
 		gbc_anuluj.gridy = 0;
 		drugi.add(anuluj, gbc_anuluj);
 		
-		JButton zatw = new JButton("ZatwierdŸ");
-		// zatw.addActionListener(e -> );
+		zatw = new JButton("ZatwierdŸ");
 		GridBagConstraints gbc_zatw = new GridBagConstraints();
 		gbc_zatw.anchor = GridBagConstraints.EAST;
 		gbc_zatw.gridx = 2;
 		gbc_zatw.gridy = 0;
 		drugi.add(zatw, gbc_zatw);
 	
+	}
+	
+	public JTextField getTfSmak() {
+		return tfSmak;
+	}
+	
+	public JTextField getTfMarka() {
+		return tfMarka;
+	}
+	
+	public JTextField getTfCena() {
+		return tfCena;
+	}
+	
+	public JTextArea getTaOpis() {
+		return taOpis;
+	}
+	
+	public JSlider getSliderDym() {
+		return sliderDym;
+	}
+	
+	public JSlider getSliderSmak() {
+		return sliderSmak;
+	}
+	
+	public JSlider getSliderCzas() {
+		return sliderCzas;
+	}
+	
+	public void setNowytytonpresenter(NowyTytonPresenter nowytytonpresenter) {
+		this.nowytytonpresenter = nowytytonpresenter;
+		zatw.addActionListener(e -> nowytytonpresenter.dodajTyton());
 	}
 }
