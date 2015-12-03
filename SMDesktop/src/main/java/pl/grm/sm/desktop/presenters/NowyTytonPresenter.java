@@ -2,8 +2,8 @@ package pl.grm.sm.desktop.presenters;
 
 import javax.swing.JTextField;
 
+import pl.grm.sm.core.DBHandler;
 import pl.grm.sm.desktop.Desktop;
-import pl.grm.sm.desktop.view.tytonie.NowyTytonView;
 import pl.grm.sm.desktop.view.tytonie.NowyTytonView;
 
 public class NowyTytonPresenter {
@@ -29,6 +29,17 @@ public class NowyTytonPresenter {
 				&& tfSmak.getText() != null
 				&& tfSmak.getText().trim().length() > 3) {
 			System.out.println("el doopa");
+			DBHandler dbhand = desktop.getDbhandler();
+			try {
+				if (!dbhand.execute().markaIstnieje(tfMarka.getText())) {
+					dbhand.execute().dodajMarke(tfMarka.getText());
+				}
+				if (!dbhand.execute().smakIstnieje(tfSmak.getText())) {
+					dbhand.execute().dodajSmak(tfSmak.getText());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
  else
 			System.out.println("wpisz poprawnie");

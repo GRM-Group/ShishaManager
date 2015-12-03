@@ -28,6 +28,13 @@ public class DBHandlerImpl implements DBHandler {
 		}
 	}
 	
+	/**
+	 * Generuje preparedstatements z podanego parametru ps
+	 * 
+	 * @param ps
+	 * @return
+	 * @throws SQLException
+	 */
 	PreparedStatement getPS(PreparedStatements ps) throws SQLException {
 		checkConnection();
 		return dbConnection.prepareStatement(ps);

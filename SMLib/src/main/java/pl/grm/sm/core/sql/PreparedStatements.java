@@ -16,7 +16,9 @@ enum PreparedStatements {
 	GETSHISHABAR(""),
 	ADDTOBACCO("INSERT INTO `tytonie` (`marka_id`, `smak_id`) VALUES ((SELECT `id` FROM `marki` WHERE `name` = ?), (SELECT `id` FROM `smaki` WHERE `name` = ?))"),
 	ADDFLAVOR("INSERT INTO `smaki` (`name`) VALUES (?)"),
-	ADDCOMPANY("INSERT INTO `marki` (`name`) VALUES (?)");
+	ADDCOMPANY("INSERT INTO `marki` (`name`) VALUES (?)"),
+	CHECKCOMPANY("SELECT `id` FROM `marki` WHERE `name` = ?"),
+	CHECKFLAVOR("SELECT `id` FROM `smaki` WHERE `name` = ?");
 	
 	private String statement;
 	

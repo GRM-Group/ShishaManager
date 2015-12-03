@@ -15,6 +15,12 @@ public class SQLExecutor {
 		}
 	}
 	
+	/**
+	 * @param user
+	 * @param pswd
+	 * @param salt
+	 * @throws SQLException
+	 */
 	public void addUser(String user, char[] pswd, String salt)
 			throws SQLException {
 		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDUSER);
@@ -25,11 +31,44 @@ public class SQLExecutor {
 	}
 	
 	public boolean userExists(String user) throws SQLException {
-		PreparedStatement ps = dbHandler.getPS(PreparedStatements.CHECKUSER);
-		ps.setString(1, user);
-		ResultSet rs = ps.executeQuery();
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.CHECKUSER);
+		pst.setString(1, user);
+		ResultSet rs = pst.executeQuery();
 		boolean res = rs.next();
 		rs.close();
 		return res;
 	}
+	
+	public void dodajMarke(String marka) throws SQLException {
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDCOMPANY);
+		pst.setString(1, marka);
+		pst.executeUpdate();
+	}
+	
+	public boolean markaIstnieje(String marka) throws SQLException {
+		PreparedStatement pst = dbHandler
+				.getPS(PreparedStatements.CHECKCOMPANY);
+		pst.setString(1, marka);
+		ResultSet rs = pst.executeQuery();
+		boolean res = rs.next();
+		rs.close();
+		return res;
+	}
+	
+	public void dodajSmak(String smak) throws SQLException {
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDFLAVOR);
+		pst.setString(1, smak);
+		pst.executeUpdate();
+	}
+	
+	public boolean smakIstnieje(String smak) throws SQLException {
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.CHECKFLAVOR);
+		pst.setString(1, smak);
+		ResultSet rs = pst.executeQuery();
+		boolean res = rs.next();
+		rs.close();
+		return res;
+	}
+
+
 }
