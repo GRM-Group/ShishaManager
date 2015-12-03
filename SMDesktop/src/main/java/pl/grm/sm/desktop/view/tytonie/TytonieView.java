@@ -1,13 +1,9 @@
 package pl.grm.sm.desktop.view.tytonie;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import pl.grm.sm.desktop.Desktop;
 import pl.grm.sm.desktop.Strona;
@@ -30,7 +26,7 @@ public class TytonieView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.WSZYSTKIE);
+				desktop.zmienStrone(Strona.WSZYSTKIE);
 			}
 		});
 		pierwszy.add(wszystkie);
@@ -39,7 +35,7 @@ public class TytonieView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.MARKI);
+				desktop.zmienStrone(Strona.MARKI);
 			}
 		});
 		pierwszy.add(marki);
@@ -48,27 +44,27 @@ public class TytonieView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.SMAKI);
+				desktop.zmienStrone(Strona.SMAKI);
 			}
 		});
 		pierwszy.add(smaki);
-		JButton dodaj = new JButton("Dodaj tytoñ");
+		JButton dodaj = new JButton("Dodaj tytoï¿½");
 		dodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.NOWYTYTOÑ);
+				desktop.zmienStrone(Strona.NOWYTYTON);
 			}
 		});
 		pierwszy.add(dodaj);
-		JButton powrót = new JButton("<-");
-		powrót.addActionListener(new ActionListener() {
+		JButton powrot = new JButton("<-");
+		powrot.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.MENUG£ÓWNE);
+				desktop.zmienStrone(Strona.MENUGLOWNE);
 			}
 		});
-		drugi.add(powrót);
+		drugi.add(powrot);
 	}
 }

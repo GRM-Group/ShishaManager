@@ -1,13 +1,9 @@
 package pl.grm.sm.desktop.view.tytonie;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import pl.grm.sm.core.DBHandler;
 import pl.grm.sm.desktop.Desktop;
@@ -28,14 +24,14 @@ public class MarkiView extends JPanel {
 		this.desktop = desktop;
 		DBHandler db = desktop.getDbhandler();
 		// db.execute().
-		JButton powrót = new JButton("<-");
-		powrót.addActionListener(new ActionListener() {
+		JButton powrot = new JButton("<-");
+		powrot.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				desktop.zmieñStronê(Strona.TYTONIE);
+				desktop.zmienStrone(Strona.TYTONIE);
 			}
 		});
-		drugi.add(powrót);
+		drugi.add(powrot);
 	}
 }

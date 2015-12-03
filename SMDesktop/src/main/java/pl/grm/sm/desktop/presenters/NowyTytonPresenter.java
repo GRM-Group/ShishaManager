@@ -3,16 +3,17 @@ package pl.grm.sm.desktop.presenters;
 import javax.swing.JTextField;
 
 import pl.grm.sm.desktop.Desktop;
-import pl.grm.sm.desktop.view.tytonie.NowyTytoñView;
+import pl.grm.sm.desktop.view.tytonie.NowyTytonView;
+import pl.grm.sm.desktop.view.tytonie.NowyTytonView;
 
 public class NowyTytonPresenter {
 
 	private Desktop desktop;
-	private NowyTytoñView view;
+	private NowyTytonView view;
 	
-	public NowyTytonPresenter(Desktop desktop, NowyTytoñView nowytytoñ) {
+	public NowyTytonPresenter(Desktop desktop, NowyTytonView nowytyton) {
 		this.desktop = desktop;
-		this.view = nowytytoñ;
+		this.view = nowytyton;
 		this.view.setNowytytonpresenter(this);
 		
 	}

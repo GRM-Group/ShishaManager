@@ -2,30 +2,18 @@ package pl.grm.sm.desktop;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import pl.grm.sm.core.DBHandler;
 import pl.grm.sm.core.sql.DBConnection;
 import pl.grm.sm.desktop.presenters.NowyTytonPresenter;
-import pl.grm.sm.desktop.view.KalendarzView;
-import pl.grm.sm.desktop.view.MenuG³ówneView;
-import pl.grm.sm.desktop.view.ShishaBaryView;
-import pl.grm.sm.desktop.view.WydatkiView;
-import pl.grm.sm.desktop.view.tytonie.MarkaView;
-import pl.grm.sm.desktop.view.tytonie.MarkiView;
-import pl.grm.sm.desktop.view.tytonie.NowyTytoñView;
-import pl.grm.sm.desktop.view.tytonie.SmakView;
-import pl.grm.sm.desktop.view.tytonie.SmakiView;
-import pl.grm.sm.desktop.view.tytonie.TytonieView;
-import pl.grm.sm.desktop.view.tytonie.TytoñView;
-import pl.grm.sm.desktop.view.tytonie.WszystkieTytonieView;
+import pl.grm.sm.desktop.view.*;
+import pl.grm.sm.desktop.view.tytonie.*;
 public class Desktop extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private MenuG³ówneView menu;
+	private MenuGlowneView menu;
 	private KalendarzView kalendarz;
 	private TytonieView tytonie;
 	private ShishaBaryView shishabary;
@@ -35,8 +23,8 @@ public class Desktop extends JFrame {
 	private MarkiView marki;
 	private SmakView smak;
 	private SmakiView smaki;
-	private TytoñView tytoñ;
-	private NowyTytoñView nowytytoñ;
+	private TytonView tyton;
+	private NowyTytonView nowytyton;
 	private DBHandler dbhandler;
 	
 	public Desktop() {
@@ -48,7 +36,7 @@ public class Desktop extends JFrame {
 			e.printStackTrace();
 		}
 		contentPane = new JPanel();
-		setContentPane(contentPane); // <---- ustawia contentPane jako g³ówny
+		setContentPane(contentPane); // <---- ustawia contentPane jako gï¿½ï¿½wny
 										// panel programu/okna
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Shisha manager");
@@ -62,11 +50,11 @@ public class Desktop extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		zmieñStronê(Strona.MENUG£ÓWNE);
+		zmienStrone(Strona.MENUGLOWNE);
 	}
 	
 	private void stworzStrony() {
-		menu = new MenuG³ówneView(this);
+		menu = new MenuGlowneView(this);
 		kalendarz = new KalendarzView(this);
 		shishabary = new ShishaBaryView(this);
 		tytonie = new TytonieView(this);
@@ -76,21 +64,21 @@ public class Desktop extends JFrame {
 		marki = new MarkiView(this);
 		smak = new SmakView(this);
 		smaki = new SmakiView(this);
-		tytoñ = new TytoñView(this);
-		nowytytoñ = new NowyTytoñView();
+		tyton = new TytonView(this);
+		nowytyton = new NowyTytonView();
 		NowyTytonPresenter nowytytonpresenter = new NowyTytonPresenter(this,
-				nowytytoñ);
+ nowytyton);
 				
 	}
 	
-	public void zmieñStronê(Strona strona) {
+	public void zmienStrone(Strona strona) {
 		contentPane.removeAll();
 		contentPane.invalidate();
 		switch (strona) {
 			case KALENDARZ :
 				contentPane.add(kalendarz);
 				break;
-			case MENUG£ÓWNE :
+			case MENUGLOWNE :
 				contentPane.add(menu);
 				break;
 			case SHISHABARY :
@@ -117,11 +105,11 @@ public class Desktop extends JFrame {
 			case SMAKI :
 				contentPane.add(smaki);
 				break;
-			case TYTOÑ :
-				contentPane.add(tytoñ);
+			case TYTON :
+				contentPane.add(tyton);
 				break;
-			case NOWYTYTOÑ :
-				contentPane.add(nowytytoñ);
+			case NOWYTYTON :
+				contentPane.add(nowytyton);
 			default :
 				break;
 		}
