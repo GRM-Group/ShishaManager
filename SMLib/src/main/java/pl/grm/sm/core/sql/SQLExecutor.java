@@ -47,7 +47,7 @@ public class SQLExecutor {
 	
 	public boolean markaIstnieje(String marka) throws SQLException {
 		PreparedStatement pst = dbHandler
-				.getPS(PreparedStatements.CHECKCOMPANY);
+				.getPS(PreparedStatements.GET_COMPANY_ID);
 		pst.setString(1, marka);
 		ResultSet rs = pst.executeQuery();
 		boolean res = rs.next();
@@ -62,7 +62,7 @@ public class SQLExecutor {
 	}
 	
 	public boolean smakIstnieje(String smak) throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.CHECKFLAVOR);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.GET_FLAVOR_ID);
 		pst.setString(1, smak);
 		ResultSet rs = pst.executeQuery();
 		boolean res = rs.next();
@@ -71,4 +71,24 @@ public class SQLExecutor {
 	}
 
 
+	public void dodajTyton(String marka, String smak) throws SQLException {
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDTOBACCO);
+		pst.setString(1, marka);
+		pst.setString(2, smak);
+		pst.executeUpdate();
+		
+	}
+	
+	public boolean tytonIstnieje(String marka, String smak)
+			throws SQLException {
+		PreparedStatement pst = dbHandler
+				.getPS(PreparedStatements.GET_TOBACCO_ID);
+		pst.setString(1, marka);
+		pst.setString(2, smak);
+		ResultSet rs = pst.executeQuery();
+		boolean res = rs.next();
+		rs.close();
+		return res;
+	}
+	
 }

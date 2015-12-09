@@ -1,5 +1,7 @@
 package pl.grm.sm.desktop.presenters;
 
+import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import pl.grm.sm.core.DBHandler;
@@ -25,6 +27,11 @@ public class NowyTytonPresenter {
 	public Object dodajTyton() {
 		JTextField tfMarka = this.view.getTfMarka();
 		JTextField tfSmak = this.view.getTfSmak();
+		JTextField tfCena = this.view.getTfCena();
+		JSlider jsOcenaSmak = this.view.getSliderSmak();
+		JSlider jsOcenaDym = this.view.getSliderDym();
+		JSlider jsCzas = this.view.getSliderCzas();
+		JTextArea taOpis = this.view.getTaOpis();
 		if (tfMarka.getText() != null && tfMarka.getText().trim().length() > 3
 				&& tfSmak.getText() != null
 				&& tfSmak.getText().trim().length() > 3) {
@@ -36,6 +43,11 @@ public class NowyTytonPresenter {
 				}
 				if (!dbhand.execute().smakIstnieje(tfSmak.getText())) {
 					dbhand.execute().dodajSmak(tfSmak.getText());
+				}
+				if (!dbhand.execute().tytonIstnieje(tfMarka.getText(),
+						tfSmak.getText())) {
+					dbhand.execute().dodajTyton(tfMarka.getText(),
+							tfSmak.getText());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
