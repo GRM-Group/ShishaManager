@@ -24,7 +24,7 @@ public class NowyTytonPresenter {
 		return desktop;
 	}
 	
-	public Object dodajTyton() {
+	public void dodajTyton() {
 		JTextField tfMarka = this.view.getTfMarka();
 		JTextField tfSmak = this.view.getTfSmak();
 		JTextField tfCena = this.view.getTfCena();
@@ -36,6 +36,14 @@ public class NowyTytonPresenter {
 				&& tfSmak.getText() != null
 				&& tfSmak.getText().trim().length() > 3) {
 			System.out.println("el doopa");
+			String cenaString = tfCena.getText();
+			double cena;
+			try {
+				cena = Double.parseDouble(cenaString);
+			} catch (NumberFormatException e) {
+				cena = 0;
+				e.printStackTrace();
+			}
 			DBHandler dbhand = desktop.getDbhandler();
 			try {
 				if (!dbhand.execute().markaIstnieje(tfMarka.getText())) {
@@ -49,14 +57,18 @@ public class NowyTytonPresenter {
 					dbhand.execute().dodajTyton(tfMarka.getText(),
 							tfSmak.getText());
 				}
+				if (!dbhand.execute().daneTytoniuIstnieje(tfMarka.getText(), tfSmak.getText())) {
+					dbhand.execute().dodajDaneTytoniu(tfMarka.getText(), tfSmak.getText(), jsOcenaDym.getValue(), jsOcenaSmak.getValue(), jsCzas.getValue(), (cena == 0 ? null : cena),
+							taOpis.getText());
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
- else
+ else {
 			System.out.println("wpisz poprawnie");
-		
-		return null;
+		}
+		return;
 	}
 	
 }

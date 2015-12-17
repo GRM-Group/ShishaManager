@@ -23,7 +23,7 @@ public class SQLExecutor {
 	 */
 	public void addUser(String user, char[] pswd, String salt)
 			throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDUSER);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADD_USER);
 		pst.setString(1, user);
 		pst.setString(2, new String(pswd));
 		pst.setString(3, salt);
@@ -31,7 +31,7 @@ public class SQLExecutor {
 	}
 	
 	public boolean userExists(String user) throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.CHECKUSER);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.CHECK_USER);
 		pst.setString(1, user);
 		ResultSet rs = pst.executeQuery();
 		boolean res = rs.next();
@@ -40,7 +40,7 @@ public class SQLExecutor {
 	}
 	
 	public void dodajMarke(String marka) throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDCOMPANY);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADD_COMPANY);
 		pst.setString(1, marka);
 		pst.executeUpdate();
 	}
@@ -56,7 +56,7 @@ public class SQLExecutor {
 	}
 	
 	public void dodajSmak(String smak) throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDFLAVOR);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADD_FLAVOR);
 		pst.setString(1, smak);
 		pst.executeUpdate();
 	}
@@ -72,7 +72,7 @@ public class SQLExecutor {
 
 
 	public void dodajTyton(String marka, String smak) throws SQLException {
-		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADDTOBACCO);
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADD_TOBACCO);
 		pst.setString(1, marka);
 		pst.setString(2, smak);
 		pst.executeUpdate();
@@ -83,6 +83,33 @@ public class SQLExecutor {
 			throws SQLException {
 		PreparedStatement pst = dbHandler
 				.getPS(PreparedStatements.GET_TOBACCO_ID);
+		pst.setString(1, marka);
+		pst.setString(2, smak);
+		ResultSet rs = pst.executeQuery();
+		boolean res = rs.next();
+		rs.close();
+		return res;
+	}
+	
+	public void dodajDaneTytoniu(String marka, String smak, int ocenaDymu, int ocenaSmaku, int czasPalenia, double cena, String opis)
+			throws SQLException {
+		PreparedStatement pst = dbHandler.getPS(PreparedStatements.ADD_TOBACCO_DATA);
+		pst.setString(1, "wincenty");
+		pst.setString(2, marka);
+		pst.setString(3, smak);
+		pst.setInt(4, ocenaDymu);
+		pst.setInt(5, ocenaSmaku);
+		pst.setInt(6, czasPalenia);
+		pst.setDouble(7, cena);
+		pst.setString(8, opis);
+		pst.executeUpdate();
+			
+	}
+
+	public boolean daneTytoniuIstnieje(String marka, String smak)
+			throws SQLException {
+		PreparedStatement pst = dbHandler
+				.getPS(PreparedStatements.GET_TOBACCO_DATA_ID);
 		pst.setString(1, marka);
 		pst.setString(2, smak);
 		ResultSet rs = pst.executeQuery();
