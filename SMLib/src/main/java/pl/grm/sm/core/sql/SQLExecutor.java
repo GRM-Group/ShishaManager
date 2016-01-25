@@ -3,8 +3,10 @@ package pl.grm.sm.core.sql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.TreeMap;
 
 import pl.grm.sm.core.DBHandler;
+import pl.grm.sm.core.DaneTytoniu;
 
 public class SQLExecutor {
 	private DBHandlerImpl dbHandler;
@@ -117,5 +119,19 @@ public class SQLExecutor {
 		rs.close();
 		return res;
 	}
+	
+	public TreeMap<Integer, DaneTytoniu> pobierzListe() throws SQLException {
+		PreparedStatement pst = dbHandler
+				.getPS(PreparedStatements.GET_TOBACCO_DATA_LIST_ALL);
+		ResultSet rs = pst.executeQuery();
+		TreeMap<Integer, DaneTytoniu> map = new TreeMap<>();
+		while (rs.next()) {
+			DaneTytoniu x = new DaneTytoniu(rs.getString("marka"),
+					rs.getString("smak"), rs.getDouble("ocena_ogolna"),
+					rs.getDouble("cena"));
+			map.put(rs.getInt(0), x);
+		}
+		return map;
+	};
 	
 }

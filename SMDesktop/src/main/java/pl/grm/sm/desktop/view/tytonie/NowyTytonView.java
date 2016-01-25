@@ -1,9 +1,20 @@
 package pl.grm.sm.desktop.view.tytonie;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.Hashtable;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import pl.grm.sm.desktop.Strona;
 import pl.grm.sm.desktop.presenters.NowyTytonPresenter;
@@ -125,8 +136,8 @@ public class NowyTytonView extends JPanel {
 			sliderCzas.setPaintLabels(true);
 			sliderCzas.setPaintTicks(true);
 			sliderCzas.setSnapToTicks(true);
-			sliderCzas.setMinorTickSpacing(15);
-			sliderCzas.setMaximum(240);
+			sliderCzas.setMinorTickSpacing(20);
+			sliderCzas.setMaximum(220);
 			panel_5.add(sliderCzas);
 		}
 		{

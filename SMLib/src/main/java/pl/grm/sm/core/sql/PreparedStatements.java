@@ -22,8 +22,10 @@ enum PreparedStatements {
 	GET_TOBACCO_ID("SELECT `id` FROM `tytonie` WHERE `marka_id` = (" + GET_COMPANY_ID.getStatement() + ") AND `smak_id` =  (" + GET_FLAVOR_ID.getStatement() + ")"),
 	ADD_TOBACCO_DATA("INSERT INTO `user_tobacco_data` (`user_id`, `tyton_id`, `ocena_dym`, `ocena_smak`,`czas_palenia`,`cena`,`opis`) VALUES ((SELECT `id` FROM `users` WHERE `username` = ?),("
 			+ GET_TOBACCO_ID.getStatement() + ") , ?, ?, ?, ?, ?)"),
-	GET_TOBACCO_DATA_ID("SELECT `id` FROM `user_tobacco_data` WHERE `tyton_id` = (" + GET_TOBACCO_ID.getStatement() + ")");
-	
+	GET_TOBACCO_DATA_ID("SELECT `id` FROM `user_tobacco_data` WHERE `tyton_id` = ("
+			+ GET_TOBACCO_ID.getStatement() + ")"),
+	GET_TOBACCO_DATA_LIST_ALL("SELECT user_tobacco_data.id, marki.name AS marka, smaki.name AS smak, (ocena_dym + ocena_smak + (czas_palenia / 20))/3 AS ocena_ogolna, cena FROM user_tobacco_data INNER JOIN tytonie ON user_tobacco_data.tyton_id = tytonie.id INNER JOIN marki ON tytonie.marka_id = marki.id INNER JOIN smaki ON tytonie.smak_id = smaki.id");
+
 	private String statement;
 	
 	PreparedStatements(String statement) {
