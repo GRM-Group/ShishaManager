@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
          classpath 'com.github.rholder:gradle-one-jar:1.0.4'
-		 classpath 'com.android.tools.build:gradle:1.5.0'
+		 classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
@@ -36,21 +36,22 @@ project(':SMLib') {
 	apply plugin: 'application'
 	apply plugin: 'gradle-one-jar'
 
-	group="pl.grm.sm"
+	group="eu.grmdev.sm"
 	description="Common Library for Shisha Manager Project"
 	def archieveFileName="SMLib"
-	mainClassName="pl.grm.sm.lib.TestSM"
+	mainClassName="eu.grmdev.sm.lib.TestSM"
 
 	dependencies {
-		compile group: 'mysql',name: 'mysql-connector-java', version: '5.1.35'
-		compile group: 'com.google.guava', name: 'guava', version: '18.0'
-		compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-		compile group: 'org.json', name: 'json', version: '20141113'
+		compile group: 'mysql',name: 'mysql-connector-java', version: '6.0.5'
+		compile group: 'com.google.guava', name: 'guava', version: '21.0'
+		compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+		compile group: 'org.json', name: 'json', version: '20160810'
 		compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
 		testCompile 'junit:junit:4.12'
 	}
 
-	task pmd << {
+	task pmd  {
+		doLast {
     println 'Running PMD static code analysis'
 		ant {
 			taskdef(name:'pmd', classname:'net.sourceforge.pmd.ant.PMDTask', classpath: configurations.pmdConf.asPath)
@@ -64,6 +65,7 @@ project(':SMLib') {
 					include(name: '**/*.java')
 				}        
 			}
+		}
 		}
 	}
 }
@@ -78,10 +80,10 @@ project(':SMDesktop') {
 		testCompile 'junit:junit:4.12'
     }
 	
-	group="pl.grm.sm"
+	group="eu.grmdev.sm"
 	description="Shisha Manager Desktop App"
 	def archieveFileName="ShishaManager"
-	mainClassName="pl.grm.sm.Main"
+	mainClassName="eu.grmdev.sm.Main"
 
 	jar {
 		manifest {
@@ -90,7 +92,8 @@ project(':SMDesktop') {
 		}
 	}
 
-	task pmd << {
+	task pmd {
+		doLast {
     println 'Running PMD static code analysis'
 		ant {
 			taskdef(name:'pmd', classname:'net.sourceforge.pmd.ant.PMDTask', classpath: configurations.pmdConf.asPath)
@@ -105,10 +108,11 @@ project(':SMDesktop') {
 				}        
 			}
 		}
+		}
 	}
 }
 
-project(':SMAndroid') {
+/* project(':SMAndroid') {
 	apply plugin: 'android'
 	
 	android {
@@ -119,8 +123,8 @@ project(':SMAndroid') {
 	dependencies {
         compile project(':SMLib')
     }
-}
+} */
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+    gradleVersion = '3.4'
 }
